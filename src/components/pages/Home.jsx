@@ -12,9 +12,19 @@ function Home() {
     setBoard(nextBoard);
   }
 
+  function updateBoard(node) {
+    let newBoard = board.slice();
+    newBoard[node.i][node.j] = node;
+    setBoard(newBoard);
+  }
+
   return (
     <div>
-      <TopMenu board={board} boardFunction={onBoardClick} />
+      <TopMenu
+        board={board}
+        resetBoard={onBoardClick}
+        updateBoard={updateBoard}
+      />
       <Grid board={board} onBoardClick={onBoardClick} />
     </div>
   );
