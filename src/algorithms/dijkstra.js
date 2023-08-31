@@ -1,62 +1,45 @@
-const directions = [
-  [-1, 0],
-  [1, 0],
-  [0, -1],
-  [0, 1],
-];
+import { resetProps, directions } from "./algoUtils";
 
-function resetProps(matrix) {
-  // for (let i = 0; i < matrix.length; i++) {
-  //   for (let j = 0; j < matrix[i].length; j++) {
-  //     matrix[i][j].distance = Infinity;
-  //     matrix[i][j].isVisited = false;
-  //   }
-  // }
+function initQueue(matrix) {
+  let queue = [];
   for (const arr of matrix) {
     for (const node of arr) {
-      node.distance = Infinity;
-      node.isVisited = false;
+      if (!node.isBlocked) {
+        queue.push(node);
+      }
     }
   }
+  return queue;
 }
 
-function getValidNeighbors(matrix, node) {
-  let neighbors = [];
+function updateNeighbors(matrix, node) {
   let row, col, neighbor;
   for (const dir of directions) {
     row = node.i + dir[0];
     col = node.j + dir[1];
-    if (0 <= row && row <= 14 && 0 <= col && col <= 29) {
+    if (row >= 0 && row <= 14 && col >= 0 && col <= 29) {
       neighbor = matrix[row][col];
       if (!neighbor.isVisited && !neighbor.isBlocked) {
-        neighbors.push(neighbor);
+        neighbor.distance = node.distance + 1;
       }
     }
   }
-  return neighbors;
 }
 
-export function dijkstraAlgo(matrix, startRow, startCol, endRow, endCol) {
+export function Dijkstra(matrix, startRow, startCol, endRow, endCol) {
   resetProps(matrix);
   let visited = [];
-  let source = matrix[startRow][startCol];
-  source.distance = 0;
-  let queue = [source];
-  while (queue.length > 0) {
-    let current = queue.shift();
-    current.isVisited = true;
-    visited.push(current);
-    if (current.i == endRow && current.j == endCol) {
+  matrix[startRow][startCol].distance = 0;
+  let queue = initQueue(matrix);
+  while (queue.length) {
+    queue.sort((a, b) => a.distance - b.distance);
+    let closest = queue.shift();
+    closest.isVisited = true;
+    visited.push(closest);
+    if (closest.i == endRow && closest.j == endCol) {
       return visited;
     }
-    let neighbors = getValidNeighbors(matrix, current);
-    for (const neighbor of neighbors) {
-      if (neighbor.distance > current.distance + 1) {
-        neighbor.distance = current.distance + 1;
-        neighbor.previous = [current.i, current.j];
-        queue.push(neighbor);
-      }
-    }
+    updateNeighbors(matrix, closest);
   }
-  return [];
+  return visited;
 }

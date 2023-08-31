@@ -8,6 +8,7 @@ function Legend() {
       <Entry title={"Start Node"} iconColorClass={"icon green"}></Entry>
       <Entry title={"End Node"} iconColorClass={"icon red"}></Entry>
       <Entry title={"Unvisited Node"} iconColorClass={"icon white"}></Entry>
+      <Entry title={"Wall Node"} iconColorClass={"icon black"}></Entry>
       <Entry title={"Visited Node"} iconColorClass={"icon gray"}></Entry>
       <Entry title={"Path Node"} iconColorClass={"icon yellow"}></Entry>
     </div>

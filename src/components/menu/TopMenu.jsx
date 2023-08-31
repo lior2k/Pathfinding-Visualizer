@@ -6,7 +6,7 @@ import {
   clearPathAndVisited,
   clearWalls,
 } from "../../utils/board";
-import { dijkstraAlgo } from "../../algorithms/dijkstra";
+import { Dijkstra } from "../../algorithms/dijkstra";
 
 function animateShortestPath(board, updateBoard, extraTime) {
   let startingPosition =
@@ -17,7 +17,6 @@ function animateShortestPath(board, updateBoard, extraTime) {
     path.push(current);
     current = board[current.previous[0]][current.previous[1]];
   }
-
   path.reverse();
   for (let i = 0; i < path.length; i++) {
     setTimeout(() => {
@@ -46,7 +45,7 @@ function visualizeDijkstra(board, updateBoard) {
     }
     newBoard.push(newRow);
   }
-  let visitedNodes = dijkstraAlgo(newBoard, 7, 0, 7, 29);
+  let visitedNodes = Dijkstra(newBoard, 7, 0, 7, 29);
   if (visitedNodes.length) {
     animateVisited(visitedNodes, updateBoard);
     animateShortestPath(newBoard, updateBoard, visitedNodes.length);
