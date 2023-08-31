@@ -25,6 +25,10 @@
   background-color: gray;
 }
 
+.path {
+  background-color: yellow;
+}
+
 .start {
   background-color: green;
 }

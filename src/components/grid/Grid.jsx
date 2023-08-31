@@ -22,6 +22,7 @@ function Grid({ board, onBoardClick }) {
           onClick={() => handleClick(i, j)}
           isBlocked={board[i][j].isBlocked}
           isVisited={board[i][j].isVisited}
+          isPath={board[i][j].isPath}
           distance={board[i][j].distance}
           isStart={board[i][j].isStart}
           isEnd={board[i][j].isEnd}
