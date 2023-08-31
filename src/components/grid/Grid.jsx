@@ -18,7 +18,7 @@ function Grid({ board, onBoardClick }) {
     for (let j = 0; j < board[i].length; j++) {
       row.push(
         <Square
-          key={i * 30 + j}
+          key={i * board[i].length + j}
           onClick={() => handleClick(i, j)}
           isBlocked={board[i][j].isBlocked}
           isVisited={board[i][j].isVisited}

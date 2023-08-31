@@ -1,12 +1,17 @@
 import React from "react";
 import "./TopMenu.css";
-import { getInitialBoard } from "../../utils/board";
+import {
+  startAndEndPositions,
+  getInitialBoard,
+  clearPathAndVisited,
+  clearWalls,
+} from "../../utils/board";
 import { dijkstraAlgo } from "../../algorithms/dijkstra";
 
 function animateShortestPath(board, updateBoard, extraTime) {
-  let endPosition = board[7][29];
-  let startingPosition = board[7][0];
-  let current = endPosition;
+  let startingPosition =
+    board[startAndEndPositions.startRow][startAndEndPositions.startCol];
+  let current = board[startAndEndPositions.endRow][startAndEndPositions.endCol];
   let path = [];
   while (current != startingPosition) {
     path.push(current);
@@ -51,9 +56,11 @@ function visualizeDijkstra(board, updateBoard) {
 function TopMenu({ board, resetBoard, updateBoard }) {
   return (
     <div className="top-menu">
+      <button>Pathfinding Visualizer</button>
       <button>Algorithm</button>
       <button
         onClick={() => {
+          clearPathAndVisited(board, updateBoard);
           visualizeDijkstra(board, updateBoard);
         }}
       >
@@ -64,7 +71,21 @@ function TopMenu({ board, resetBoard, updateBoard }) {
           resetBoard(getInitialBoard());
         }}
       >
-        Clear Board
+        Reset Board
+      </button>
+      <button
+        onClick={() => {
+          clearWalls(board, updateBoard);
+        }}
+      >
+        Clear Walls
+      </button>
+      <button
+        onClick={() => {
+          clearPathAndVisited(board, updateBoard);
+        }}
+      >
+        Clear Path
       </button>
     </div>
   );

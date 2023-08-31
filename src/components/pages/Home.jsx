@@ -1,5 +1,6 @@
 import React from "react";
 import TopMenu from "../menu/TopMenu";
+import Legend from "../legend/legend";
 import Grid from "../grid/Grid";
 import "./Home.css";
 import { useState } from "react";
@@ -25,6 +26,7 @@ function Home() {
         resetBoard={onBoardClick}
         updateBoard={updateBoard}
       />
+      <Legend />
       <Grid board={board} onBoardClick={onBoardClick} />
     </div>
   );

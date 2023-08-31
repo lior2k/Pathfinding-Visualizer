@@ -1,16 +1,26 @@
-export function getInitialBoard() {
-  const numRows = 15;
-  const numCols = 30;
+export let boardBoundaries = {
+  rows: 15,
+  cols: 30,
+};
 
+export let startAndEndPositions = {
+  startRow: 7,
+  startCol: 0,
+  endRow: 7,
+  endCol: 29,
+};
+
+export function getInitialBoard() {
   let initialBoard = [];
-  for (let i = 0; i < numRows; i++) {
+  for (let i = 0; i < boardBoundaries.rows; i++) {
     let row = [];
-    for (let j = 0; j < numCols; j++) {
+    for (let j = 0; j < boardBoundaries.cols; j++) {
       let node = {
         i,
         j,
         isBlocked: false,
         isVisited: false,
+        isPath: false,
         distance: 0,
         isStart: false,
         isEnd: false,
@@ -19,22 +29,31 @@ export function getInitialBoard() {
     }
     initialBoard.push(row);
   }
-  // let initialBoard = Array(numRows)
-  //   .fill()
-  //   .map(() =>
-  //     Array(numCols)
-  //       .fill()
-  //       .map(() => ({
-  // isBlocked: false,
-  // isVisited: false,
-  // distance: 0,
-  // isStart: false,
-  // isEnd: false,
-  //       }))
-  //   );
 
-  initialBoard[7][0].isStart = true;
-  initialBoard[7][29].isEnd = true;
+  initialBoard[startAndEndPositions.startRow][
+    startAndEndPositions.startCol
+  ].isStart = true;
+  initialBoard[startAndEndPositions.endRow][
+    startAndEndPositions.endCol
+  ].isEnd = true;
 
   return initialBoard;
+}
+
+export function clearPathAndVisited(board, updateBoard) {
+  for (const arr of board) {
+    for (const node of arr) {
+      let newNode = { ...node, isVisited: false, isPath: false };
+      updateBoard(newNode);
+    }
+  }
+}
+
+export function clearWalls(board, updateBoard) {
+  for (const arr of board) {
+    for (const node of arr) {
+      const newNode = { ...node, isBlocked: false };
+      updateBoard(newNode);
+    }
+  }
 }
