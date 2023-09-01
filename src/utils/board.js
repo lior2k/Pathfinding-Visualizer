@@ -40,20 +40,20 @@ export function getInitialBoard() {
   return initialBoard;
 }
 
-export function clearPathAndVisited(board, updateBoard) {
+export function clearPathAndVisited(board, updateNode) {
   for (const arr of board) {
     for (const node of arr) {
       let newNode = { ...node, isVisited: false, isPath: false };
-      updateBoard(newNode);
+      updateNode(newNode);
     }
   }
 }
 
-export function clearWalls(board, updateBoard) {
+export function clearWalls(board, updateNode) {
   for (const arr of board) {
     for (const node of arr) {
       const newNode = { ...node, isBlocked: false };
-      updateBoard(newNode);
+      updateNode(newNode);
     }
   }
 }

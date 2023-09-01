@@ -21,6 +21,7 @@ function updateNeighbors(matrix, node) {
       neighbor = matrix[row][col];
       if (!neighbor.isVisited && !neighbor.isBlocked) {
         neighbor.distance = node.distance + 1;
+        neighbor.previous = [node.i, node.j];
       }
     }
   }

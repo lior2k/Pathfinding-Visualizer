@@ -1,15 +1,30 @@
 import React from "react";
 import "./Grid.css";
 import Square from "./square/Square";
+import { useState } from "react";
 
-function Grid({ board, onBoardClick }) {
+function Grid({ board, updateNode }) {
+  const [mouseIsPressed, setMouseIsPressed] = useState(false);
+
   function handleClick(i, j) {
-    let nextBoard = board.slice();
-    nextBoard[i][j] = {
-      ...nextBoard[i][j],
-      isBlocked: !nextBoard[i][j].isBlocked,
-    };
-    onBoardClick(nextBoard);
+    let newNode = { ...board[i][j], isBlocked: !board[i][j].isBlocked };
+    updateNode(newNode);
+  }
+
+  function handleMouseDown(i, j) {
+    let newNode = { ...board[i][j], isBlocked: !board[i][j].isBlocked };
+    updateNode(newNode);
+    setMouseIsPressed(true);
+  }
+
+  function handleMouseEnter(i, j) {
+    if (!mouseIsPressed) return;
+    let newNode = { ...board[i][j], isBlocked: !board[i][j].isBlocked };
+    updateNode(newNode);
+  }
+
+  function handleMouseUp() {
+    setMouseIsPressed(false);
   }
 
   let grid = [];
@@ -20,6 +35,9 @@ function Grid({ board, onBoardClick }) {
         <Square
           key={i * board[i].length + j}
           onClick={() => handleClick(i, j)}
+          onMouseDown={() => handleMouseDown(i, j)}
+          onMouseEnter={() => handleMouseEnter(i, j)}
+          onMouseUp={() => handleMouseUp(i, j)}
           isBlocked={board[i][j].isBlocked}
           isVisited={board[i][j].isVisited}
           isPath={board[i][j].isPath}

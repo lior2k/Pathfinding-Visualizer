@@ -7,35 +7,36 @@ import {
   clearWalls,
 } from "../../utils/board";
 import { Dijkstra } from "../../algorithms/dijkstra";
+import { BFS } from "../../algorithms/bfs";
+import { useState } from "react";
 
-function animateShortestPath(board, updateBoard, extraTime) {
-  let startingPosition =
+function animateShortestPath(board, updateNode, extraTime, speed) {
+  let startNode =
     board[startAndEndPositions.startRow][startAndEndPositions.startCol];
   let current = board[startAndEndPositions.endRow][startAndEndPositions.endCol];
   let path = [];
-  while (current != startingPosition) {
-    path.push(current);
+  while (current != startNode) {
+    path.unshift(current);
     current = board[current.previous[0]][current.previous[1]];
   }
-  path.reverse();
   for (let i = 0; i < path.length; i++) {
     setTimeout(() => {
       path[i].isPath = true;
       path[i].isVisited = false;
-      updateBoard(path[i]);
-    }, 20 * (i + extraTime));
+      updateNode(path[i]);
+    }, speed * (i + extraTime));
   }
 }
 
-function animateVisited(visitedNodes, updateBoard) {
+function animateVisited(visitedNodes, updateNode, speed) {
   for (let i = 0; i < visitedNodes.length; i++) {
     setTimeout(() => {
-      updateBoard(visitedNodes[i]);
-    }, i * 20);
+      updateNode(visitedNodes[i]);
+    }, i * speed);
   }
 }
 
-function visualizeDijkstra(board, updateBoard) {
+function visualize(board, updateNode, selectedAlgorithm, speed) {
   let newBoard = [];
   for (const arr of board) {
     let newRow = [];
@@ -45,47 +46,65 @@ function visualizeDijkstra(board, updateBoard) {
     }
     newBoard.push(newRow);
   }
-  let visitedNodes = Dijkstra(newBoard, 7, 0, 7, 29);
+  let visitedNodes;
+  if (selectedAlgorithm == "Dijkstra") {
+    visitedNodes = Dijkstra(newBoard, 7, 0, 7, 29);
+  } else if (selectedAlgorithm == "BFS") {
+    visitedNodes = BFS(newBoard, 7, 0, 7, 29);
+  }
+
   if (visitedNodes.length) {
-    animateVisited(visitedNodes, updateBoard);
-    animateShortestPath(newBoard, updateBoard, visitedNodes.length);
+    animateVisited(visitedNodes, updateNode, speed);
+    animateShortestPath(newBoard, updateNode, visitedNodes.length, speed);
   }
 }
 
-function TopMenu({ board, resetBoard, updateBoard }) {
+function TopMenu({ board, updateNode, updateBoard }) {
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState("Dijkstra");
+  const [speed, setSpeed] = useState(20);
+
   return (
     <div className="top-menu">
       <button>Pathfinding Visualizer</button>
-      <button>Algorithm</button>
+      {/* <button>Algorithm</button> */}
+      <select onChange={(event) => { setSelectedAlgorithm(event.target.value) }}>
+        <option value="Dijkstra">Dijkstra</option>
+        <option value="BFS">BFS</option>
+      </select>
       <button
         onClick={() => {
-          clearPathAndVisited(board, updateBoard);
-          visualizeDijkstra(board, updateBoard);
+          clearPathAndVisited(board, updateNode);
+          visualize(board, updateNode, selectedAlgorithm, speed);
         }}
       >
-        Visualize
+        Visualize {selectedAlgorithm}
       </button>
       <button
         onClick={() => {
-          resetBoard(getInitialBoard());
+          updateBoard(getInitialBoard());
         }}
       >
         Reset Board
       </button>
       <button
         onClick={() => {
-          clearWalls(board, updateBoard);
+          clearWalls(board, updateNode);
         }}
       >
         Clear Walls
       </button>
       <button
         onClick={() => {
-          clearPathAndVisited(board, updateBoard);
+          clearPathAndVisited(board, updateNode);
         }}
       >
         Clear Path
       </button>
+      <select onChange={(event) => { setSpeed(event.target.value) }}>
+        <option value={50}>Slow</option>
+        <option value={25}>Average</option>
+        <option value={10}>Fast</option>
+      </select>
     </div>
   );
 }

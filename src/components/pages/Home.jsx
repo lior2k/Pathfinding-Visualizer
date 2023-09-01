@@ -9,11 +9,11 @@ import { getInitialBoard } from "../../utils/board";
 function Home() {
   const [board, setBoard] = useState(getInitialBoard());
 
-  function onBoardClick(nextBoard) {
+  function updateBoard(nextBoard) {
     setBoard(nextBoard);
   }
 
-  function updateBoard(node) {
+  function updateNode(node) {
     let newBoard = board.slice();
     newBoard[node.i][node.j] = node;
     setBoard(newBoard);
@@ -23,11 +23,11 @@ function Home() {
     <div>
       <TopMenu
         board={board}
-        resetBoard={onBoardClick}
+        updateNode={updateNode}
         updateBoard={updateBoard}
       />
       <Legend />
-      <Grid board={board} onBoardClick={onBoardClick} />
+      <Grid board={board} updateNode={updateNode} />
     </div>
   );
 }
