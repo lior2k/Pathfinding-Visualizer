@@ -48,9 +48,9 @@ function visualize(board, updateNode, selectedAlgorithm, speed) {
   }
   let visitedNodes;
   if (selectedAlgorithm == "Dijkstra") {
-    visitedNodes = Dijkstra(newBoard, 7, 0, 7, 29);
+    visitedNodes = Dijkstra(newBoard);
   } else if (selectedAlgorithm == "BFS") {
-    visitedNodes = BFS(newBoard, 7, 0, 7, 29);
+    visitedNodes = BFS(newBoard);
   }
 
   if (visitedNodes.length) {
@@ -66,8 +66,11 @@ function TopMenu({ board, updateNode, updateBoard }) {
   return (
     <div className="top-menu">
       <button>Pathfinding Visualizer</button>
-      {/* <button>Algorithm</button> */}
-      <select onChange={(event) => { setSelectedAlgorithm(event.target.value) }}>
+      <select
+        onChange={(event) => {
+          setSelectedAlgorithm(event.target.value);
+        }}
+      >
         <option value="Dijkstra">Dijkstra</option>
         <option value="BFS">BFS</option>
       </select>
@@ -100,11 +103,17 @@ function TopMenu({ board, updateNode, updateBoard }) {
       >
         Clear Path
       </button>
-      <select onChange={(event) => { setSpeed(event.target.value) }}>
+      <select
+        onChange={(event) => {
+          setSpeed(event.target.value);
+        }}
+      >
         <option value={50}>Slow</option>
         <option value={25}>Average</option>
         <option value={10}>Fast</option>
       </select>
+
+      <div></div>
     </div>
   );
 }

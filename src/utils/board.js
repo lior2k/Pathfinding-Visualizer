@@ -5,9 +5,9 @@ export let boardBoundaries = {
 
 export let startAndEndPositions = {
   startRow: 7,
-  startCol: 0,
+  startCol: 3,
   endRow: 7,
-  endCol: 29,
+  endCol: 26,
 };
 
 export function getInitialBoard() {

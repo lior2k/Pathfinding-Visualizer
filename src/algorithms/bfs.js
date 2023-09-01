@@ -1,16 +1,21 @@
 import { resetProps, getValidNeighbors } from "./algoUtils";
+import { startAndEndPositions } from "../utils/board";
 
-export function BFS(matrix, startRow, startCol, endRow, endCol) {
+export function BFS(matrix) {
   resetProps(matrix);
   let visited = [];
-  let source = matrix[startRow][startCol];
+  let source =
+    matrix[startAndEndPositions.startRow][startAndEndPositions.startCol];
   source.distance = 0;
   let queue = [source];
   while (queue.length > 0) {
     let current = queue.shift();
     current.isVisited = true;
     visited.push(current);
-    if (current.i == endRow && current.j == endCol) {
+    if (
+      current.i == startAndEndPositions.endRow &&
+      current.j == startAndEndPositions.endCol
+    ) {
       return visited;
     }
     let neighbors = getValidNeighbors(matrix, current);
