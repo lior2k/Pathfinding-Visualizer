@@ -18,7 +18,7 @@ function Square(props) {
   if (props.isEnd) {
     className = className.concat(" end");
   }
-  return <button className={className} onClick={props.onClick} onMouseDown={props.onMouseDown}
+  return <button className={className} onMouseDown={props.onMouseDown}
     onMouseEnter={props.onMouseEnter} onMouseUp={props.onMouseUp}></button>;
 }
 

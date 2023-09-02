@@ -44,13 +44,16 @@ export function Dijkstra(matrix) {
   while (queue.length) {
     queue.sort((a, b) => a.distance - b.distance);
     let closest = queue.shift();
+    if (closest.distance === Infinity) {
+      break;
+    }
     closest.isVisited = true;
     visited.push(closest);
     if (
       closest.i == startAndEndPositions.endRow &&
       closest.j == startAndEndPositions.endCol
     ) {
-      return visited;
+      break;
     }
     updateNeighbors(matrix, closest);
   }

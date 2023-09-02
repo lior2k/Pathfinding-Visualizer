@@ -11,6 +11,10 @@ import { BFS } from "../../algorithms/bfs";
 import { useState } from "react";
 
 function animateShortestPath(board, updateNode, extraTime, speed) {
+  let endNode = board[startAndEndPositions.endRow][startAndEndPositions.endCol];
+  if (endNode.distance === Infinity) {
+    return;
+  }
   let startNode =
     board[startAndEndPositions.startRow][startAndEndPositions.startCol];
   let current = board[startAndEndPositions.endRow][startAndEndPositions.endCol];
@@ -53,10 +57,8 @@ function visualize(board, updateNode, selectedAlgorithm, speed) {
     visitedNodes = BFS(newBoard);
   }
 
-  if (visitedNodes.length) {
-    animateVisited(visitedNodes, updateNode, speed);
-    animateShortestPath(newBoard, updateNode, visitedNodes.length, speed);
-  }
+  animateVisited(visitedNodes, updateNode, speed);
+  animateShortestPath(newBoard, updateNode, visitedNodes.length, speed);
 }
 
 function TopMenu({ board, updateNode, updateBoard }) {
@@ -108,12 +110,11 @@ function TopMenu({ board, updateNode, updateBoard }) {
           setSpeed(event.target.value);
         }}
       >
-        <option value={50}>Slow</option>
-        <option value={25}>Average</option>
-        <option value={10}>Fast</option>
+        <option value={120}>Slow</option>
+        <option value={60}>Average</option>
+        <option value={20}>Fast</option>
       </select>
 
-      <div></div>
     </div>
   );
 }

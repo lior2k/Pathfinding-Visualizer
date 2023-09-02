@@ -21,7 +21,7 @@ export function getInitialBoard() {
         isBlocked: false,
         isVisited: false,
         isPath: false,
-        distance: 0,
+        distance: Infinity,
         isStart: false,
         isEnd: false,
       };

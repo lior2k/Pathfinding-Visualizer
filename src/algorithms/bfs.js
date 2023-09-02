@@ -16,7 +16,7 @@ export function BFS(matrix) {
       current.i == startAndEndPositions.endRow &&
       current.j == startAndEndPositions.endCol
     ) {
-      return visited;
+      break;
     }
     let neighbors = getValidNeighbors(matrix, current);
     for (const neighbor of neighbors) {
@@ -27,5 +27,5 @@ export function BFS(matrix) {
       }
     }
   }
-  return [];
+  return visited;
 }
