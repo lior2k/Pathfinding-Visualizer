@@ -27,9 +27,29 @@ function Grid({ board, updateNode }) {
 
   function handleMouseEnter(i, j) {
     if (!mouseIsPressed) return;
-    if (movingStart || movingEnd) return;
-    let newNode = { ...board[i][j], isBlocked: !board[i][j].isBlocked };
+    let newNode;
+    if (movingStart) {
+      newNode = { ...board[i][j], isStart: true };
+    } else if (movingEnd) {
+      newNode = { ...board[i][j], isEnd: true };
+    } else {
+      newNode = { ...board[i][j], isBlocked: !board[i][j].isBlocked };
+    }
+
     updateNode(newNode);
+  }
+
+  function handleMouseLeave(i, j) {
+    if (!mouseIsPressed) return;
+    let newNode;
+    if (movingStart) {
+      newNode = { ...board[i][j], isStart: false };
+      updateNode(newNode);
+    } else if (movingEnd) {
+      newNode = { ...board[i][j], isEnd: false };
+      updateNode(newNode);
+    }
+
   }
 
   function handleMouseUp(i, j) {
@@ -60,6 +80,7 @@ function Grid({ board, updateNode }) {
           onMouseDown={() => handleMouseDown(i, j)}
           onMouseEnter={() => handleMouseEnter(i, j)}
           onMouseUp={() => handleMouseUp(i, j)}
+          onMouseLeave={() => handleMouseLeave(i, j)}
           isBlocked={board[i][j].isBlocked}
           isVisited={board[i][j].isVisited}
           isPath={board[i][j].isPath}

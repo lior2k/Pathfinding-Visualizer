@@ -19,7 +19,7 @@ function Square(props) {
     className = className.concat(" end");
   }
   return <button className={className} onMouseDown={props.onMouseDown}
-    onMouseEnter={props.onMouseEnter} onMouseUp={props.onMouseUp}></button>;
+    onMouseEnter={props.onMouseEnter} onMouseUp={props.onMouseUp} onMouseLeave={props.onMouseLeave}></button>;
 }
 
 export default Square;

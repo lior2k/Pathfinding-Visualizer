@@ -6,8 +6,7 @@
   flex-direction: row;
 }
 
-button,
-select {
+.menu-button {
   background-color: transparent;
   border-width: 0;
   text-align: center;
@@ -23,12 +22,12 @@ select option {
   font-size: 20px;
 }
 
-button:hover {
+.menu-button:hover {
   background-color: #ddd;
   color: black;
 }
 
-select:hover {
+.menu-button:hover {
   background-color: #ddd;
   color: black;
 }

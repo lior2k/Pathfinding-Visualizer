@@ -67,8 +67,8 @@ function TopMenu({ board, updateNode, updateBoard }) {
 
   return (
     <div className="top-menu">
-      <button>Pathfinding Visualizer</button>
-      <select
+      <button className="menu-button">Pathfinding Visualizer</button>
+      <select className="menu-button"
         onChange={(event) => {
           setSelectedAlgorithm(event.target.value);
         }}
@@ -76,7 +76,7 @@ function TopMenu({ board, updateNode, updateBoard }) {
         <option value="Dijkstra">Dijkstra</option>
         <option value="BFS">BFS</option>
       </select>
-      <button
+      <button className="menu-button"
         onClick={() => {
           clearPathAndVisited(board, updateNode);
           visualize(board, updateNode, selectedAlgorithm, speed);
@@ -84,28 +84,28 @@ function TopMenu({ board, updateNode, updateBoard }) {
       >
         Visualize {selectedAlgorithm}
       </button>
-      <button
+      <button className="menu-button"
         onClick={() => {
           updateBoard(getInitialBoard());
         }}
       >
         Reset Board
       </button>
-      <button
+      <button className="menu-button"
         onClick={() => {
           clearWalls(board, updateNode);
         }}
       >
         Clear Walls
       </button>
-      <button
+      <button className="menu-button"
         onClick={() => {
           clearPathAndVisited(board, updateNode);
         }}
       >
         Clear Path
       </button>
-      <select
+      <select className="menu-button"
         onChange={(event) => {
           setSpeed(event.target.value);
         }}
@@ -114,6 +114,7 @@ function TopMenu({ board, updateNode, updateBoard }) {
         <option value={60}>Average</option>
         <option value={20}>Fast</option>
       </select>
+
 
     </div>
   );
