@@ -8,6 +8,7 @@ import {
 } from "../../utils/board";
 import { Dijkstra } from "../../algorithms/dijkstra";
 import { BFS } from "../../algorithms/bfs";
+import { DFS } from "../../algorithms/dfs";
 import { useState } from "react";
 
 function animateShortestPath(board, updateNode, extraTime, speed) {
@@ -51,10 +52,12 @@ function visualize(board, updateNode, selectedAlgorithm, speed) {
     newBoard.push(newRow);
   }
   let visitedNodes;
-  if (selectedAlgorithm == "Dijkstra") {
+  if (selectedAlgorithm === "Dijkstra") {
     visitedNodes = Dijkstra(newBoard);
-  } else if (selectedAlgorithm == "BFS") {
+  } else if (selectedAlgorithm === "BFS") {
     visitedNodes = BFS(newBoard);
+  } else if (selectedAlgorithm === "DFS") {
+    visitedNodes = DFS(newBoard);
   }
 
   animateVisited(visitedNodes, updateNode, speed);
@@ -74,7 +77,8 @@ function TopMenu({ board, updateNode, updateBoard }) {
         }}
       >
         <option value="Dijkstra">Dijkstra</option>
-        <option value="BFS">BFS</option>
+        <option value="BFS">Breadth First Search</option>
+        <option value="DFS">Depth First Search</option>
       </select>
       <button className="menu-button"
         onClick={() => {

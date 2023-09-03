@@ -23,12 +23,11 @@
   left: 4px;
 }
 
-.green {
-  background-color: green;
-}
-
-.red {
-  background-color: red;
+.sourceNodeImg,
+.targetNodeImg {
+  max-width: 22px;
+  max-height: 22px;
+  pointer-events: none;
 }
 
 .white {
