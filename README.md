@@ -1,8 +1,8 @@
 # Pathfinding Visualizer
 
-![](https://i.imgur.com/AsINClB.png)
-
 Pathfinding Visualizer is a responsive and interactive frontend/client-oriented web application built on JavaScript, React.js and Node.js.
+
+![](https://i.imgur.com/AsINClB.png)
 
 ## Features
 
