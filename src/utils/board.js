@@ -1,13 +1,13 @@
 export let boardBoundaries = {
-  rows: 15,
-  cols: 30,
+  rows: 25,
+  cols: 50,
 };
 
 export let startAndEndPositions = {
-  startRow: 7,
-  startCol: 3,
-  endRow: 7,
-  endCol: 26,
+  startRow: 12,
+  startCol: 10,
+  endRow: 12,
+  endCol: 39,
 };
 
 export function getInitialBoard() {

@@ -1,3 +1,5 @@
+import { startAndEndPositions, boardBoundaries } from "../utils/board";
+
 export const directions = [
   [-1, 0],
   [1, 0],
@@ -20,7 +22,12 @@ export function getValidNeighbors(matrix, node) {
   for (const dir of directions) {
     row = node.i + dir[0];
     col = node.j + dir[1];
-    if (0 <= row && row <= 14 && 0 <= col && col <= 29) {
+    if (
+      row >= 0 &&
+      row < boardBoundaries.rows &&
+      col >= 0 &&
+      col < boardBoundaries.cols
+    ) {
       neighbor = matrix[row][col];
       if (!neighbor.isVisited && !neighbor.isBlocked) {
         neighbors.push(neighbor);
