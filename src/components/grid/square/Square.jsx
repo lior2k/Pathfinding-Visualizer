@@ -22,12 +22,12 @@ function Square(props) {
       onMouseUp={props.onMouseUp}
       onMouseLeave={props.onMouseLeave}
     >
-      {props.isStart ? <img className="startImg" src={sourceNodeSVG} /> // Render the <img> if isEnd is true
+      {props.isStart ? <img className="startImg" src={sourceNodeSVG} />
         :
         props.isEnd ? (
-          <img className="endImg" src={targetNodeSVG} /> // Render the <img> if isEnd is true
+          <img className="endImg" src={targetNodeSVG} />
         ) : (
-          null // Render nothing if isEnd is false
+          null
         )}
     </button>
   );
