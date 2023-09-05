@@ -1,5 +1,5 @@
 .top-menu {
-  background-color: #222;
+  background-color: #111;
   width: 100%;
 
   display: flex;
@@ -12,9 +12,29 @@
   text-align: center;
   color: #f2f2f2;
   font-size: 20px;
-  margin-left: 8px;
   padding: 14px 16px;
   cursor: pointer;
+}
+
+.special {
+  animation: glowing 3s infinite;
+}
+
+@keyframes glowing {
+  0% {
+    background-color: #2ba805;
+    box-shadow: 0 0 3px #2ba805;
+  }
+
+  50% {
+    background-color: #49e819;
+    box-shadow: 0 0 10px #49e819;
+  }
+
+  100% {
+    background-color: #2ba805;
+    box-shadow: 0 0 3px #2ba805;
+  }
 }
 
 select option {

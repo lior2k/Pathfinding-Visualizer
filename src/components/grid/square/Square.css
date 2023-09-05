@@ -5,8 +5,8 @@
   font-weight: bold;
   line-height: 34px;
   text-align: center;
-  min-height: 34px;
-  min-width: 34px;
+  min-height: 32px;
+  min-width: 32px;
   display: flex;
   flex-direction: row;
   flex: 1;
@@ -20,17 +20,69 @@
   background-color: black;
 }
 
-.visited {
-  background-color: gray;
-}
-
-.path {
-  background-color: yellow;
-}
-
 .startImg,
 .endImg {
   width: 100%;
   height: 100%;
   pointer-events: none;
+}
+
+.visited {
+  animation: visitedNodes 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes visitedNodes {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+
+  0% {
+    background-color: #00014d;
+  }
+
+  50% {
+    background-color: #4042bb;
+  }
+
+  100% {
+    background-color: #282cff;
+    box-shadow: 0 0 5px #282cff;
+  }
+}
+
+.path {
+  animation: pathNodes 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes pathNodes {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+
+  0% {
+    background-color: white;
+  }
+
+  25% {
+    background-color: #fffeb9;
+  }
+
+  50% {
+    background-color: #fffc5a;
+  }
+
+  100% {
+    background-color: #fffb00;
+    box-shadow: 0 0 5px #fffb00;
+  }
 }

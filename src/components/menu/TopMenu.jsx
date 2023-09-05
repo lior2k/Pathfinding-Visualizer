@@ -1,7 +1,6 @@
 import React from "react";
 import "./TopMenu.css";
 import {
-  startAndEndPositions,
   getInitialBoard,
   clearPathAndVisited,
   clearWalls,
@@ -10,36 +9,7 @@ import { Dijkstra } from "../../algorithms/dijkstra";
 import { BFS } from "../../algorithms/bfs";
 import { DFS } from "../../algorithms/dfs";
 import { useState } from "react";
-
-function animateShortestPath(board, updateNode, extraTime, speed) {
-  let endNode = board[startAndEndPositions.endRow][startAndEndPositions.endCol];
-  if (endNode.distance === Infinity) {
-    return;
-  }
-  let startNode =
-    board[startAndEndPositions.startRow][startAndEndPositions.startCol];
-  let current = board[startAndEndPositions.endRow][startAndEndPositions.endCol];
-  let path = [];
-  while (current != startNode) {
-    path.unshift(current);
-    current = board[current.previous[0]][current.previous[1]];
-  }
-  for (let i = 0; i < path.length; i++) {
-    setTimeout(() => {
-      path[i].isPath = true;
-      path[i].isVisited = false;
-      updateNode(path[i]);
-    }, speed * (i + extraTime));
-  }
-}
-
-function animateVisited(visitedNodes, updateNode, speed) {
-  for (let i = 0; i < visitedNodes.length; i++) {
-    setTimeout(() => {
-      updateNode(visitedNodes[i]);
-    }, i * speed);
-  }
-}
+import { animateVisited, animateShortestPath } from "../../utils/animations";
 
 function visualize(board, updateNode, selectedAlgorithm, speed) {
   let newBoard = [];
@@ -80,7 +50,7 @@ function TopMenu({ board, updateNode, updateBoard }) {
         <option value="BFS">Breadth First Search</option>
         <option value="DFS">Depth First Search</option>
       </select>
-      <button className="menu-button"
+      <button className="menu-button special"
         onClick={() => {
           clearPathAndVisited(board, updateNode);
           visualize(board, updateNode, selectedAlgorithm, speed);

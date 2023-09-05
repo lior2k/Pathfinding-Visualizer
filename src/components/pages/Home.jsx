@@ -20,7 +20,7 @@ function Home() {
   }
 
   return (
-    <div className="check">
+    <div>
       <TopMenu
         board={board}
         updateNode={updateNode}
