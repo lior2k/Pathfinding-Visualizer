@@ -42,16 +42,18 @@
   }
 
   0% {
-    background-color: #00014d;
+    background-color: #19c3cf;
+    box-shadow: 0 0 3px #19c3cf;
   }
 
   50% {
-    background-color: #4042bb;
+    background-color: #196ce8;
+    box-shadow: 0 0 10px #196ce8;
   }
 
   100% {
-    background-color: #282cff;
-    box-shadow: 0 0 5px #282cff;
+    background-color: #19c3cf;
+    box-shadow: 0 0 3px #19c3cf;
   }
 }
 
