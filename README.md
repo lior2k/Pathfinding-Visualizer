@@ -32,4 +32,4 @@ npm start
 
 ## Usage Example
 Mp4 to Gif kinda ruined the quality - will fix soon :)
-![](https://i.imgur.com/Otfoh00.mp4)
+![](https://github.com/lior2k/Pathfinding-Visualizer/blob/main/gif_example.gif)
