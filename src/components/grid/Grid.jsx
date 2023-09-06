@@ -70,34 +70,28 @@ function Grid({ board, updateNode }) {
     setMouseIsPressed(false);
   }
 
-  let grid = [];
-  for (let i = 0; i < board.length; i++) {
-    let row = [];
-    for (let j = 0; j < board[i].length; j++) {
-      row.push(
-        <Square
-          key={i * board[i].length + j}
-          onMouseDown={() => handleMouseDown(i, j)}
-          onMouseEnter={() => handleMouseEnter(i, j)}
-          onMouseUp={() => handleMouseUp(i, j)}
-          onMouseLeave={() => handleMouseLeave(i, j)}
-          isBlocked={board[i][j].isBlocked}
-          isVisited={board[i][j].isVisited}
-          isPath={board[i][j].isPath}
-          distance={board[i][j].distance}
-          isStart={board[i][j].isStart}
-          isEnd={board[i][j].isEnd}
-        />
-      );
-    }
-    grid.push(
-      <div key={i} className="row">
-        {row}
-      </div>
-    );
-  }
+  return (
+    <div className="grid">
+      {board.map((row, i) => (
+        <div className="row" key={i}>
+          {row.map((node, j) => (
+            <Square key={i * row.length + j}
+              onMouseDown={() => handleMouseDown(i, j)}
+              onMouseEnter={() => handleMouseEnter(i, j)}
+              onMouseUp={() => handleMouseUp(i, j)}
+              onMouseLeave={() => handleMouseLeave(i, j)}
+              isBlocked={node.isBlocked}
+              isVisited={node.isVisited}
+              isPath={node.isPath}
+              distance={node.distance}
+              isStart={node.isStart}
+              isEnd={node.isEnd} />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
 
-  return <div className="grid">{grid}</div>;
 }
 
 export default Grid;
