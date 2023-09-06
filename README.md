@@ -2,7 +2,7 @@
 
 Pathfinding Visualizer is a responsive and interactive frontend/client-oriented web application built on JavaScript, React.js and Node.js.
 
-![](https://i.imgur.com/AsINClB.png)
+![](https://i.imgur.com/Ky7Lavp.png)
 
 ## Features
 
@@ -32,4 +32,4 @@ npm start
 
 ## Usage Example
 Mp4 to Gif kinda ruined the quality - will fix soon :)
-![](https://i.imgur.com/z41rVus.gif)
+![](https://github.com/lior2k/Pathfinding-Visualizer/blob/main/gif_example.gif)
