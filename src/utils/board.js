@@ -40,6 +40,19 @@ export function getInitialBoard() {
   return initialBoard;
 }
 
+export function deepCopyBoard(board) {
+  let newBoard = [];
+  for (const arr of board) {
+    let newRow = [];
+    for (const node of arr) {
+      let newNode = { ...node };
+      newRow.push(newNode);
+    }
+    newBoard.push(newRow);
+  }
+  return newBoard;
+}
+
 export function clearPathAndVisited(board, updateNode) {
   for (const arr of board) {
     for (const node of arr) {

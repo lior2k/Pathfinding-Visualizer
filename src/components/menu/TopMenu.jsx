@@ -2,6 +2,7 @@ import React from "react";
 import "./TopMenu.css";
 import {
   getInitialBoard,
+  deepCopyBoard,
   clearPathAndVisited,
   clearWalls,
 } from "../../utils/board";
@@ -12,17 +13,8 @@ import { BFS } from "../../algorithms/bfs";
 import { DFS } from "../../algorithms/dfs";
 import { useState } from "react";
 
-
 function visualize(board, updateNode, selectedAlgorithm, speed) {
-  let newBoard = [];
-  for (const arr of board) {
-    let newRow = [];
-    for (const node of arr) {
-      let newNode = { ...node };
-      newRow.push(newNode);
-    }
-    newBoard.push(newRow);
-  }
+  let newBoard = deepCopyBoard(board);
   let visitedNodes;
   if (selectedAlgorithm === "Dijkstra") {
     visitedNodes = Dijkstra(newBoard);
@@ -38,20 +30,53 @@ function visualize(board, updateNode, selectedAlgorithm, speed) {
 
 function TopMenu({ board, updateNode, updateBoard }) {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState("Dijkstra");
+  const [algorithmDropDown, setAlgorithmDropDown] = useState(false);
+
+  function handleAlgorithmDropDown(algorithm) {
+    setSelectedAlgorithm(algorithm);
+    setAlgorithmDropDown(!algorithmDropDown);
+  }
+
+  const [speedDropDown, setSpeedDropDown] = useState(false);
+  const [speedText, setSpeedText] = useState("Average");
   const [speed, setSpeed] = useState(20);
+
+  function handleSpeedDropDown(speed, text) {
+    setSpeed(speed);
+    setSpeedText(text);
+    setSpeedDropDown(false);
+  }
 
   return (
     <div className="top-menu">
       <button className="menu-button">Pathfinding Visualizer</button>
-      <select className="menu-button"
-        onChange={(event) => {
-          setSelectedAlgorithm(event.target.value);
+
+      <div className="dropdown">
+        <button className="menu-button main-dropdown-button"
+          onClick={() => { setAlgorithmDropDown(!algorithmDropDown) }}>
+          Algorithm: {selectedAlgorithm}
+          <span className="dropdown-arrow">&#9660;</span>
+        </button>
+        {algorithmDropDown && (
+          <div className="dropdown-content">
+            <button className="menu-button dropdown-button" onClick={() => { handleAlgorithmDropDown("Dijkstra") }}>Dijkstra</button>
+            <button className="menu-button dropdown-button" onClick={() => { handleAlgorithmDropDown("BFS") }}>BFS</button>
+            <button className="menu-button dropdown-button" onClick={() => { handleAlgorithmDropDown("DFS") }}>Random DFS</button>
+          </div>
+        )}
+      </div>
+
+      <button
+        className="menu-button"
+        onClick={() => {
+          clearWalls(board, updateNode);
+          clearPathAndVisited(board, updateNode);
+          createRecursiveMaze(deepCopyBoard(board), updateNode);
         }}
       >
-        <option value="Dijkstra">Dijkstra</option>
-        <option value="BFS">BFS</option>
-        <option value="DFS">Randomized DFS</option>
-      </select>
+        Recursive Division
+      </button>
+
       <button className="menu-button special"
         onClick={() => {
           clearPathAndVisited(board, updateNode);
@@ -60,13 +85,15 @@ function TopMenu({ board, updateNode, updateBoard }) {
       >
         Visualize {selectedAlgorithm}
       </button>
+
       <button className="menu-button"
         onClick={() => {
           updateBoard(getInitialBoard());
         }}
       >
-        Reset Board
+        Clear Board
       </button>
+
       <button className="menu-button"
         onClick={() => {
           clearWalls(board, updateNode);
@@ -74,6 +101,7 @@ function TopMenu({ board, updateNode, updateBoard }) {
       >
         Clear Walls
       </button>
+
       <button className="menu-button"
         onClick={() => {
           clearPathAndVisited(board, updateNode);
@@ -81,25 +109,23 @@ function TopMenu({ board, updateNode, updateBoard }) {
       >
         Clear Path
       </button>
-      <select className="menu-button"
-        onChange={(event) => {
-          setSpeed(event.target.value);
-        }}
-      >
-        <option value={120}>Slow</option>
-        <option value={60}>Average</option>
-        <option value={20}>Fast</option>
-      </select>
 
-      <button
-        className="menu-button"
-        onClick={() => {
-          // updateBoard(board = getInitialBoard());
-          createRecursiveMaze(board, updateNode)
-        }}
-      >
-        Recursive Maze
-      </button>
+      <div className="dropdown">
+        <button className="menu-button main-dropdown-button"
+          onClick={() => { setSpeedDropDown(!speedDropDown) }}>
+          Speed: {speedText}
+          <span className="dropdown-arrow">&#9660;</span>
+        </button>
+
+        {speedDropDown && (
+          <div className="dropdown-content">
+            <button className="menu-button dropdown-button" onClick={() => { handleSpeedDropDown(120, "Slow") }}>Slow</button>
+            <button className="menu-button dropdown-button" onClick={() => { handleSpeedDropDown(60, "Average") }}>Average</button>
+            <button className="menu-button dropdown-button" onClick={() => { handleSpeedDropDown(20, "Fast") }}>Fast</button>
+          </div>
+        )}
+      </div>
+
     </div>
   );
 }

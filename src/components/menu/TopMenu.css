@@ -56,3 +56,31 @@ select option {
 select:focus {
   outline: none;
 }
+
+.dropdown {
+  position: relative;
+  float: left;
+}
+
+.main-dropdown-button {
+  display: inline;
+  align-items: center;
+}
+
+.dropdown-arrow {
+  margin-left: 8px;
+}
+
+.dropdown-content {
+  z-index: 1;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #111;
+  width: 100%;
+}
+
+.dropdown-button {
+  display: block;
+  width: 100%;
+}
