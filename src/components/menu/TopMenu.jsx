@@ -13,15 +13,9 @@ import { BFS } from "../../algorithms/bfs";
 import { DFS } from "../../algorithms/dfs";
 import { useState, useCallback } from "react";
 
-// function visualize(board, updateNode, selectedAlgorithm, speed) {
-// let visitedNodes = selectedAlgorithm(board);
-// animateVisited(visitedNodes, updateNode, speed);
-// animateShortestPath(board, updateNode, visitedNodes.length, speed);
-// }
-
 function TopMenu({ board, updateNode, updateBoard }) {
   const [speedDropDown, setSpeedDropDown] = useState(false);
-  const [speedText, setSpeedText] = useState("Average");
+  const [speedText, setSpeedText] = useState("Fast");
   const [speed, setSpeed] = useState(20);
 
   function handleSpeedDropDown(speed, text) {
@@ -44,7 +38,7 @@ function TopMenu({ board, updateNode, updateBoard }) {
     let visitedNodes = selectedAlgorithm(boardCopy);
     animateVisited(visitedNodes, updateNode, speed);
     animateShortestPath(boardCopy, updateNode, visitedNodes.length, speed);
-  }, [selectedAlgorithm]);
+  }, [selectedAlgorithm, speed]);
 
   return (
     <div className="top-menu">
@@ -118,9 +112,9 @@ function TopMenu({ board, updateNode, updateBoard }) {
 
         {speedDropDown && (
           <div className="dropdown-content">
-            <button className="menu-button dropdown-button" onClick={() => { handleSpeedDropDown(120, "Slow") }}>Slow</button>
-            <button className="menu-button dropdown-button" onClick={() => { handleSpeedDropDown(60, "Average") }}>Average</button>
             <button className="menu-button dropdown-button" onClick={() => { handleSpeedDropDown(20, "Fast") }}>Fast</button>
+            <button className="menu-button dropdown-button" onClick={() => { handleSpeedDropDown(60, "Average") }}>Average</button>
+            <button className="menu-button dropdown-button" onClick={() => { handleSpeedDropDown(120, "Slow") }}>Slow</button>
           </div>
         )}
       </div>
