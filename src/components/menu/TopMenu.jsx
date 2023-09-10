@@ -25,7 +25,8 @@ function TopMenu({ board, updateNode, updateBoard }) {
   }
 
   const [selectedAlgorithm, setSelectedAlgorithm] = useState(() => Dijkstra);
-  const [visualizeButtonInnerText, setVisualizeButtonInnerText] = useState("Visualize Dijkstra");
+  const [visualizeButtonInnerText, setVisualizeButtonInnerText] =
+    useState("Visualize Dijkstra");
   const [algorithmDropDown, setAlgorithmDropDown] = useState(false);
 
   function handleAlgorithmDropDown(innerText, algorithm) {
@@ -34,27 +35,53 @@ function TopMenu({ board, updateNode, updateBoard }) {
     setAlgorithmDropDown(!algorithmDropDown);
   }
 
-  const visualize = useCallback((boardCopy) => {
-    let visitedNodes = selectedAlgorithm(boardCopy);
+  const visualize = useCallback(() => {
+    let tempBoard = deepCopyBoard(board);
+    let visitedNodes = selectedAlgorithm(tempBoard);
     animateVisited(visitedNodes, updateNode, speed);
-    animateShortestPath(boardCopy, updateNode, visitedNodes.length, speed);
-  }, [selectedAlgorithm, speed]);
+    animateShortestPath(tempBoard, updateNode, visitedNodes.length, speed);
+  }, [selectedAlgorithm, speed, board]);
 
   return (
     <div className="top-menu">
       <button className="menu-button">Pathfinding Visualizer</button>
 
       <div className="dropdown">
-        <button className="menu-button main-dropdown-button"
-          onClick={() => { setAlgorithmDropDown(!algorithmDropDown) }}>
+        <button
+          className="menu-button main-dropdown-button"
+          onClick={() => {
+            setAlgorithmDropDown(!algorithmDropDown);
+          }}
+        >
           Algorithms
           <span className="dropdown-arrow">&#9660;</span>
         </button>
         {algorithmDropDown && (
           <div className="dropdown-content">
-            <button className="menu-button dropdown-button" onClick={() => { handleAlgorithmDropDown("Visualize Dijkstra", () => Dijkstra) }}>Dijkstra</button>
-            <button className="menu-button dropdown-button" onClick={() => { handleAlgorithmDropDown("Visualize BFS", () => BFS) }}>BFS</button>
-            <button className="menu-button dropdown-button" onClick={() => { handleAlgorithmDropDown("Visualize DFS", () => DFS) }}>Random DFS</button>
+            <button
+              className="menu-button dropdown-button"
+              onClick={() => {
+                handleAlgorithmDropDown("Visualize Dijkstra", () => Dijkstra);
+              }}
+            >
+              Dijkstra
+            </button>
+            <button
+              className="menu-button dropdown-button"
+              onClick={() => {
+                handleAlgorithmDropDown("Visualize BFS", () => BFS);
+              }}
+            >
+              BFS
+            </button>
+            <button
+              className="menu-button dropdown-button"
+              onClick={() => {
+                handleAlgorithmDropDown("Visualize DFS", () => DFS);
+              }}
+            >
+              Random DFS
+            </button>
           </div>
         )}
       </div>
@@ -70,16 +97,18 @@ function TopMenu({ board, updateNode, updateBoard }) {
         Recursive Division
       </button>
 
-      <button className="menu-button special"
+      <button
+        className="menu-button special"
         onClick={() => {
           clearPathAndVisited(board, updateNode);
-          visualize(deepCopyBoard(board));
+          visualize();
         }}
       >
         {visualizeButtonInnerText}
       </button>
 
-      <button className="menu-button"
+      <button
+        className="menu-button"
         onClick={() => {
           updateBoard(getInitialBoard());
         }}
@@ -87,7 +116,8 @@ function TopMenu({ board, updateNode, updateBoard }) {
         Clear Board
       </button>
 
-      <button className="menu-button"
+      <button
+        className="menu-button"
         onClick={() => {
           clearWalls(board, updateNode);
         }}
@@ -95,7 +125,8 @@ function TopMenu({ board, updateNode, updateBoard }) {
         Clear Walls
       </button>
 
-      <button className="menu-button"
+      <button
+        className="menu-button"
         onClick={() => {
           clearPathAndVisited(board, updateNode);
         }}
@@ -104,21 +135,45 @@ function TopMenu({ board, updateNode, updateBoard }) {
       </button>
 
       <div className="dropdown">
-        <button className="menu-button main-dropdown-button"
-          onClick={() => { setSpeedDropDown(!speedDropDown) }}>
+        <button
+          className="menu-button main-dropdown-button"
+          onClick={() => {
+            setSpeedDropDown(!speedDropDown);
+          }}
+        >
           Speed: {speedText}
           <span className="dropdown-arrow">&#9660;</span>
         </button>
 
         {speedDropDown && (
           <div className="dropdown-content">
-            <button className="menu-button dropdown-button" onClick={() => { handleSpeedDropDown(20, "Fast") }}>Fast</button>
-            <button className="menu-button dropdown-button" onClick={() => { handleSpeedDropDown(60, "Average") }}>Average</button>
-            <button className="menu-button dropdown-button" onClick={() => { handleSpeedDropDown(120, "Slow") }}>Slow</button>
+            <button
+              className="menu-button dropdown-button"
+              onClick={() => {
+                handleSpeedDropDown(20, "Fast");
+              }}
+            >
+              Fast
+            </button>
+            <button
+              className="menu-button dropdown-button"
+              onClick={() => {
+                handleSpeedDropDown(60, "Average");
+              }}
+            >
+              Average
+            </button>
+            <button
+              className="menu-button dropdown-button"
+              onClick={() => {
+                handleSpeedDropDown(120, "Slow");
+              }}
+            >
+              Slow
+            </button>
           </div>
         )}
       </div>
-
     </div>
   );
 }
